@@ -1,0 +1,65 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QUIZ</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_miniquiz.css')}}'>
+<div class=page>
+  <h1 class="text-center">QUIZ</h1>
+  <!-- <div class="container">
+    <div class="row">
+      <div class="col">
+        <a href="{{url_for('index')}}" ><button type="button" class="btn btn-primary">Emotion Recognition</button></a>
+    </div>
+      <div class="col">
+        <a href="{{url_for('visuospatial')}}" ><button type="button" class="btn btn-primary">Visuo Spatial</button></a> 
+    </div>
+    </div>
+  </div> -->
+  
+  {% for message in get_flashed_messages() %}
+  <div class="alert alert-warning" role="alert">
+        <p>{{ message }}</p>
+    </div>    
+    {% endfor %}
+
+  <form action = "{{ url_for('front') }}" method = "POST">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input name = "name" type="name" class="form-control" id="exampleInputName" aria-describedby="NameHelp" placeholder="Enter Name">
+    </div>
+    
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input name="age" type="age" class="form-control" id="exampleInputage" placeholder="Age">
+      </div>
+     
+      <label for="sex">Sex</label>
+      <select name="sex" class="form-control" id="exampleFormControlSelect1">
+        <option>Male</option>
+        <option>Female</option>
+        <option>Non Binary</option>
+      </select>
+    <!-- <div class="form-group form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> -->
+    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+    <div class="text-center">
+        <!-- <a href="{{url_for('index')}}" ><button type="button" class="btn btn-primary">START</button></a> -->
+        <button type="submit">Submit</button>
+      </div>
+  </form>
+
+
+ 
+
+
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+
+</html>
+

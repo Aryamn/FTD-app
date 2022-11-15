@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QUIZ</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_miniquiz.css')}}'>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style_miniquiz.css')}}'>
+<div>
+    <h3>Question #{{num}}</h3>
+  
+    <div>
+  <br /> <br />
+  <div class="container text-center">
+    <!-- <h1 class="text-center">
+  {{question}}
+  </h1>
+   -->
+  <h4>
+  <form id='answerform' method='post'  > 
+    <div clas="container">
+        <img class="emotions"  src="{{url_for('static', filename='emotions/'+ans+'.png')}}">
+      <div class="row">
+        <div class="col">
+   
+     <input type='radio' name='answer' id="r1" value={{ans1}} /> <label for="r1" style="padding: 10px;">
+      <img  class="visuo" src="{{url_for('static', filename='emotions/'+ans1+'.png')}}">
+    </label> <br /> <br /> <br />
+    </div>
+    <div class = col>
+    <input type='radio' name='answer' id="r2" checked value={{ans2}} /> <label for="r2" style="padding: 10px;">
+      <img  class="visuo" src="{{url_for('static', filename='emotions/'+ans2+'.png')}}">
+    </label> <br /> <br /> <br />
+    </div>
+   
+   
+    <div class="row">
+      <div class="col">
+     
+    <input type='radio' name='answer' id="r3" value={{ans3}} /> <label for="r3" style="padding: 10px;">
+      <img class="visuo" src="{{url_for('static', filename='emotions/'+ans3+'.png')}}">
+    </label> <br /> <br /> <br />
+  </div>
+  <div class="col">
+    <input type='radio' name='answer' id="r4" value={{ans4}} /> <label for="r4" style="padding: 10px;">
+      <img class="visuo" src="{{url_for('static', filename='emotions/'+ans4+'.png')}}">
+    </label> <br /> <br /> <br />   
+     </p>
+  </div>
+
+ 
+  </div>
+
+     <div class="text-center">
+     <button type='submit' value='submit' id="r6"  class="btn btn-primary">Submit</button>    
+     </div>
+  </form>
+  </h4>
+  </div>
+  
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+</html>
