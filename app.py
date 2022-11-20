@@ -61,11 +61,11 @@ questions_emotion_2 = {
 
     '6':{'question': 'Fear',
     'options':['sad2','disgust2','happy2','fear2','surprise2','worried2'],
-    'answer':'fear2'},
+    'answer':'fear2'}, #Same as 2nd
 
     '7':{'question': 'Angry',
     'options':['disgust2','surprise2','angry2','sad2','worried2','happy2'],
-    'answer':'angry2'}
+    'answer':'angry2'} #Same as 3rd
 }
 
 questions_emotion_3 = {
@@ -87,7 +87,15 @@ questions_emotion_3 = {
 
     '5':{'question': '',
     'options':['angry2','happy2','sad2','worried2'],
-    'answer':'angry'}
+    'answer':'angry'},
+
+    '6':{'question': '',
+    'options':['surprise2','happy2','sad2','worried2'],
+    'answer':'sad'},
+
+    '7':{'question': '',
+    'options':['disgust2','surprise2','fear2','worried2'],
+    'answer':'surprise'}
 }
 
 questions_visuo_spatial = {
@@ -115,7 +123,7 @@ questions_visuo_spatial = {
     'options':['circle','diamond','triangle','star','plus','triangle2','star2','square','semi'],
     'answer':'plus2'},
 
-    '6':{'question': 'Shape',
+    '7':{'question': 'Shape',
     'options':['circle','triangle','diamond','star','square','semi','plus','diamond2','star2'],
     'answer':'triangle2'}
 }
@@ -124,10 +132,11 @@ score_emotion = 0
 score_visuo_spatial = 0
 score_emotion_2 = 0
 score_emotion_3 = 0
-time_visuo = time.time()
-time_emotion = time.time()
-time_emotion_2 = time.time()
-time_emotion_3 = time.time()
+time_visuo = []
+time_emotion = []
+time_emotion_2 = []
+time_emotion_3 = []
+cur_time = time.time()
 Name = ""
 Age = ""
 Sex = ""
@@ -175,6 +184,7 @@ def index():
         else:
             global score_emotion
             global time_emotion
+            global cur_time
 
             curr_answer = request.form['answer']
             correct_answer = questions_emotion[session["current_question"]]["answer"] #change 
@@ -186,23 +196,25 @@ def index():
             session["current_question"] = str(int(session["current_question"])+1)
 
             if session["current_question"] in questions_emotion:
+                time_emotion.append(time.time()-cur_time)
+                cur_time = time.time()
+                print(time_emotion)
                 redirect(url_for('index'))
 
             else:
-                time_emotion =  time.time()-time_emotion
+                time_emotion.append(time.time()-cur_time)
+                cur_time = time.time()
                 print(time_emotion)
                 return render_template("end_quiz_emotion.html")
 
     if "current_question" not in session:
         score_emotion = 0
-        time_emotion =  time.time()
+        cur_time =  time.time()
         session["current_question"] = "1"
 
     elif int(session["current_question"]) > len(questions_emotion):
         session["current_question"] = "1"
         score_emotion = 0
-        time_emotion =  time.time()-time_emotion
-        print(time_emotion)
         return render_template("end_quiz_emotion.html")
 
     currentQ = questions_emotion[session["current_question"]]["question"]
@@ -222,34 +234,35 @@ def page2():
         else:
             global time_emotion_2
             global score_emotion_2
+            global cur_time
             
             curr_answer = request.form['answer']
             correct_answer = questions_emotion_2[session["current_question_2"]]["answer"] #change 
 
             if curr_answer==correct_answer:
-                time_emotion_2 = time.time()
                 score_emotion_2+=1
             print(score_emotion_2)
 
             session["current_question_2"] = str(int(session["current_question_2"])+1)
 
             if session["current_question_2"] in questions_emotion_2:
+                time_emotion_2.append(time.time()-cur_time)
+                cur_time = time.time()
                 redirect(url_for('page2'))
 
             else:
-                time_emotion_2 =  time.time()-time_emotion_2
-                print(time_emotion_2)
+                time_emotion_2.append(time.time()-cur_time)
+                cur_time = time.time()
                 return render_template("end_quiz_emotion_2.html")
 
     if "current_question_2" not in session:
-        score_emotion_2 = 0
-        time_emotion_2 = time.time()
+        cur_time = time.time()
         session["current_question_2"] = "1"
 
     elif int(session["current_question_2"]) > len(questions_emotion_2):
         score_emotion_2 = 0
-        time_emotion_2 =  time.time()-time_emotion_2
-        print(time_emotion_2)
+        cur_time = time.time()
+
         session["current_question_2"] = "1"
         return render_template("end_quiz_emotion_2.html")
 
@@ -269,33 +282,34 @@ def page3():
         else:
             global score_emotion_3
             global time_emotion_3
+            global cur_time
             
             curr_answer = request.form['answer']
             correct_answer = questions_emotion_3[session["current_question_3"]]["answer"] #change 
 
             if curr_answer[:-1]==correct_answer:
-                time_emotion_3 = time.time()
                 score_emotion_3+=1
             print(score_emotion_3)
 
             session["current_question_3"] = str(int(session["current_question_3"])+1)
 
             if session["current_question_3"] in questions_emotion_3:
+                time_emotion_3.append(time.time()-cur_time)
+                cur_time = time.time()
                 redirect(url_for('page3'))
 
             else:
-                time_emotion_3 = time.time()-time_emotion_3
-                print(time_emotion_3)
+                time_emotion_3.append(time.time()-cur_time)
+                cur_time = time.time()
                 return render_template("end_quiz_emotion_3.html")
 
     if "current_question_3" not in session:
-        time_emotion_3 = time.time()
+        cur_time = time.time()
         session["current_question_3"] = "1"
 
     elif int(session["current_question_3"]) > len(questions_emotion_3):
         session["current_question_3"] = "1"
-        time_emotion_3 = time.time()-time_emotion_3
-        print(time_emotion_3)
+        cur_time = time.time()
         return render_template("end_quiz_emotion_3.html")
 
     currentQ = questions_emotion_3[session["current_question_3"]]["question"]
@@ -315,55 +329,55 @@ def visuospatial():
         else:
             global score_visuo_spatial
             global time_visuo
+            global cur_time
             
             curr_answer = request.form['answer']
             correct_answer = questions_visuo_spatial[session["current_question_visuo"]]["answer"] #change 
 
             if curr_answer==correct_answer[:-1]:
-                time_visuo = time.time()
                 score_visuo_spatial+=1
             print(score_visuo_spatial)
 
             session["current_question_visuo"] = str(int(session["current_question_visuo"])+1)
 
             if session["current_question_visuo"] in questions_visuo_spatial:
+                time_visuo.append(time.time()-cur_time)
+                cur_time = time.time()
                 redirect(url_for('index'))
 
             else:
-                print(Name)
-                print(Age)
-                print(Sex)
-                print(score_emotion)
-                print(score_emotion_2)
-                print(score_emotion_3)
-                time_visuo = time.time()-time_visuo
-                print(time_visuo)
+                time_visuo.append(time.time()-cur_time)
+                cur_time = time.time()
 
                 with sql.connect("database.db") as con:
                     cur = con.cursor()
-                    cur.execute("INSERT INTO FTD (Name,Age,Sex,EROG1_score,EROG2_score,\
-                    EROG3_score,VISPA_score,EROG1_time , EROG2_time , EROG3_time ,\
-                    VISPA_time ) VALUES (?,?,?,?,?,?,?,?,?,?,?)",\
-                    (Name,Age,Sex,score_emotion,score_emotion_2,score_emotion_3,score_visuo_spatial,time_emotion
-                    ,time_emotion_2,time_emotion_3,time_visuo) )
+                    cur.execute("INSERT INTO FTD (Name,Age,Sex,EROG1_score,EROG2_score,EROG3_score,VISPA_score,\
+                    EROG1_time_Q1 ,EROG1_time_Q2,EROG1_time_Q3,EROG1_time_Q4,EROG1_time_Q5,EROG1_time_Q6,EROG1_time_Q7, \
+                    EROG2_time_Q1,EROG2_time_Q2,EROG2_time_Q3,EROG2_time_Q4,EROG2_time_Q5,EROG2_time_Q6,EROG2_time_Q7, \
+                    EROG3_time_Q1,EROG3_time_Q2,EROG3_time_Q3,EROG3_time_Q4,EROG3_time_Q5,EROG3_time_Q6,EROG3_time_Q7, \
+                    VISPA_time_Q1,VISPA_time_Q2,VISPA_time_Q3,VISPA_time_Q4,VISPA_time_Q5,VISPA_time_Q6,VISPA_time_Q7)\
+                    VALUES (?,?,?,?,?,?,?, \
+                    ?,?,?,?,?,?,?,\
+                    ?,?,?,?,?,?,?,\
+                    ?,?,?,?,?,?,?,\
+                    ?,?,?,?,?,?,?)",
+                    (Name,Age,Sex,score_emotion,score_emotion_2,score_emotion_3,score_visuo_spatial,
+                    time_emotion[0],time_emotion[1],time_emotion[2],time_emotion[3],time_emotion[4],time_emotion[5],time_emotion[6],
+                    time_emotion_2[0],time_emotion_2[1],time_emotion_2[2],time_emotion_2[3],time_emotion_2[4],time_emotion_2[5],time_emotion_2[6],
+                    time_emotion_3[0],time_emotion_3[1],time_emotion_3[2],time_emotion_3[3],time_emotion_3[4],time_emotion_3[5],time_emotion_3[6],
+                    time_visuo[0],time_visuo[1],time_visuo[2],time_visuo[3],time_visuo[4],time_visuo[5],time_visuo[6]) )
                 
                     con.commit()
                     print("Record successfully added")
                 return render_template("end_quiz_visuo.html")
 
     if "current_question_visuo" not in session:
-        time_visuo = time.time()
+        cur_time = time.time()
         session["current_question_visuo"] = "1"
 
     elif int(session["current_question_visuo"]) > len(questions_visuo_spatial):
         session["current_question_visuo"] = "1"
-        print(Name)
-        print(Age)
-        print(Sex)
-        print(score_emotion)
-        print(score_emotion_2)
-        print(score_emotion_3)
-        time_visuo = time.time()-time_visuo
+        cur_time = time.time()
         return render_template("end_quiz_visuo.html")
 
     currentQ = questions_visuo_spatial[session["current_question_visuo"]]["question"]
