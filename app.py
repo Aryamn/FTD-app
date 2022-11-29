@@ -59,9 +59,9 @@ questions_emotion_2 = {
     'options':['sad2','disgust2','happy2','surprise2','worried2','fear2'],
     'answer':'disgust2'},
 
-    '6':{'question': 'Fear',
+    '6':{'question': 'Worried',
     'options':['sad2','disgust2','happy2','fear2','surprise2','worried2'],
-    'answer':'fear2'}, #Same as 2nd
+    'answer':'worried2'}, #Same as 2nd
 
     '7':{'question': 'Angry',
     'options':['disgust2','surprise2','angry2','sad2','worried2','happy2'],
@@ -90,11 +90,11 @@ questions_emotion_3 = {
     'answer':'angry'},
 
     '6':{'question': '',
-    'options':['surprise2','happy2','sad2','worried2'],
+    'options':['surprise2','happy2','sad2','disgust2'],
     'answer':'sad'},
 
     '7':{'question': '',
-    'options':['disgust2','surprise2','fear2','worried2'],
+    'options':['worried2','surprise2','fear2','angry2'],
     'answer':'surprise'}
 }
 
@@ -154,6 +154,7 @@ def is_float(element: any) -> bool:
 
 @app.route('/',methods=['GET','POST'])
 def front():
+    session.clear()
     if request.method == 'POST':
         global Name
         global Age
